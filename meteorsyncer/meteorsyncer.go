@@ -53,13 +53,6 @@ func main() {
   }
   defer stmtIns.Close()
 
-  // Prepare statement for reading data
-  // stmtOut, err := db.Prepare("SELECT * FROM meteor_landings")
-  // if err != nil {
-  //   panic(err.Error()) // proper error handling instead of panic in your app
-  // }
-  // defer stmtOut.Close()
-
   var meteors []Meteor
   getJson("https://data.nasa.gov/resource/y77d-th95.json", &meteors)
 
