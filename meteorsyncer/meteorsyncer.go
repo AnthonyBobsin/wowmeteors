@@ -60,7 +60,7 @@ func main() {
   // }
   // defer stmtOut.Close()
 
-  meteors := []Meteor{}
+  var meteors []Meteor
   getJson("https://data.nasa.gov/resource/y77d-th95.json", &meteors)
 
   for _,meteor := range meteors {
