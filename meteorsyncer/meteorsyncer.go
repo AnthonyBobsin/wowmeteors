@@ -4,14 +4,16 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 	"net/http"
 	"os"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
+// Meteor struct that maps db schema to json format
 type Meteor struct {
 	Name     string `json:"name"`
-	Id       string `json:"id"`
+	ID       string `json:"id"`
 	NameType string `json:"nametype"`
 	Class    string `json:"recclass"`
 	Fall     string `json:"fall"`
@@ -24,9 +26,8 @@ type Meteor struct {
 func (m Meteor) formattedMassG() string {
 	if len(m.MassG) == 0 {
 		return "0"
-	} else {
-		return m.MassG
 	}
+	return m.MassG
 }
 
 func getDBConnection() (*sql.DB, error) {
@@ -38,7 +39,7 @@ func getDBConnection() (*sql.DB, error) {
 	return db, err
 }
 
-func getJson(url string, target interface{}) error {
+func getJSON(url string, target interface{}) error {
 	r, err := http.Get(url)
 	if err != nil {
 		return err
@@ -60,10 +61,10 @@ func main() {
 	defer stmtIns.Close()
 
 	var meteors []Meteor
-	getJson("https://data.nasa.gov/resource/y77d-th95.json", &meteors)
+	getJSON("https://data.nasa.gov/resource/y77d-th95.json", &meteors)
 
 	for _, meteor := range meteors {
-		_, err := stmtIns.Exec(meteor.Id, meteor.Name, meteor.NameType, meteor.Class, meteor.Fall, meteor.formattedMassG(), meteor.Date, meteor.Lat, meteor.Long)
+		_, err := stmtIns.Exec(meteor.ID, meteor.Name, meteor.NameType, meteor.Class, meteor.Fall, meteor.formattedMassG(), meteor.Date, meteor.Lat, meteor.Long)
 		if err != nil {
 			panic(err.Error())
 		}

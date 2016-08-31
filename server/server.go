@@ -4,13 +4,15 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 	"net/http"
 	"os"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
+// Meteor struct that wraps DB meteors table rows
 type Meteor struct {
-	NasaId   int
+	NasaID   int
 	Name     string
 	NameType string
 	Class    string
@@ -34,7 +36,7 @@ func getMeteors(w http.ResponseWriter, r *http.Request) {
 	db, err := getDBConnection()
 	defer db.Close()
 
-	rows, err := db.Query("SELECT * FROM meteor_landings")
+	rows, err := db.Query("SELECT * FROM meteor_landings limit 1000")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -46,7 +48,7 @@ func getMeteors(w http.ResponseWriter, r *http.Request) {
 	)
 
 	for rows.Next() {
-		err := rows.Scan(&meteor.NasaId,
+		err = rows.Scan(&meteor.NasaID,
 			&meteor.Name,
 			&meteor.NameType,
 			&meteor.Class,
@@ -55,6 +57,7 @@ func getMeteors(w http.ResponseWriter, r *http.Request) {
 			&meteor.Date,
 			&meteor.Lat,
 			&meteor.Long)
+
 		if err != nil {
 			panic(err.Error())
 		}
