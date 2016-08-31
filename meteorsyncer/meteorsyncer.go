@@ -29,6 +29,15 @@ func (m Meteor) formattedMassG() string {
   }
 }
 
+func getDBConnection() (*sql.DB, error) {
+  db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@/nasa_datasets", os.Getenv("MYSQL_USER"), os.Getenv("MYSQL_PASS")))
+  if err != nil {
+    panic(err.Error())
+  }
+
+  return db, err
+}
+
 func getJson(url string, target interface{}) error {
   r, err := http.Get(url)
   if err != nil {
@@ -40,16 +49,13 @@ func getJson(url string, target interface{}) error {
 }
 
 func main() {
-  db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@/nasa_datasets", os.Getenv("MYSQL_USER"), os.Getenv("MYSQL_PASS")))
-  if err != nil {
-    panic(err.Error())  // Just for example purpose. You should use proper error handling instead of panic
-  }
+  db, err := getDBConnection()
   defer db.Close()
 
   // Prepare statement for inserting data TODO: use multi insert
   stmtIns, err := db.Prepare("INSERT IGNORE INTO meteor_landings VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ? )")
   if err != nil {
-    panic(err.Error()) // proper error handling instead of panic in your app
+    panic(err.Error())
   }
   defer stmtIns.Close()
 
@@ -59,7 +65,7 @@ func main() {
   for _,meteor := range meteors {
     _, err := stmtIns.Exec(meteor.Id, meteor.Name, meteor.NameType, meteor.Class, meteor.Fall, meteor.formattedMassG(), meteor.Date, meteor.Lat, meteor.Long)
     if err != nil {
-      panic(err.Error()) // proper error handling instead of panic in your app
+      panic(err.Error())
     }
   }
 }
