@@ -7,21 +7,9 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/anthonybobsin/wowmeteors/models"
 	_ "github.com/go-sql-driver/mysql"
 )
-
-// Meteor struct that wraps DB meteors table rows
-type Meteor struct {
-	NasaID   int
-	Name     string
-	NameType string
-	Class    string
-	Fall     string
-	MassG    int32
-	Date     string
-	Lat      float32
-	Long     float32
-}
 
 func getDBConnection() (*sql.DB, error) {
 	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@/nasa_datasets", os.Getenv("MYSQL_USER"), os.Getenv("MYSQL_PASS")))
@@ -36,15 +24,15 @@ func getMeteors(w http.ResponseWriter, r *http.Request) {
 	db, err := getDBConnection()
 	defer db.Close()
 
-	rows, err := db.Query("SELECT * FROM meteor_landings limit 1000")
+	rows, err := db.Query("SELECT * FROM meteor_landings")
 	if err != nil {
 		panic(err.Error())
 	}
 	defer rows.Close()
 
 	var (
-		meteor  Meteor
-		meteors []Meteor
+		meteor  models.Meteor
+		meteors []models.Meteor
 	)
 
 	for rows.Next() {
