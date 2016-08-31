@@ -1,23 +1,24 @@
 package main
 
 import (
-	"database/sql"
 	"encoding/json"
-	"fmt"
 	"net/http"
-	"os"
 
-	"github.com/AnthonyBobsin/wowmeteors/models"
+	"github.com/AnthonyBobsin/wowmeteors/config"
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func getDBConnection() (*sql.DB, error) {
-	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@/nasa_datasets", os.Getenv("MYSQL_USER"), os.Getenv("MYSQL_PASS")))
-	if err != nil {
-		panic(err.Error())
-	}
-
-	return db, err
+// JSONMeteor struct that maps json format to meteors table schema
+type JSONMeteor struct {
+	NasaID   int     `json:"id,string"`
+	Name     string  `json:"name"`
+	NameType string  `json:"nametype"`
+	Class    string  `json:"recclass"`
+	Fall     string  `json:"fall"`
+	MassG    int32   `json:"mass,string"`
+	Date     string  `json:"year"`
+	Lat      float32 `json:"reclat,string"`
+	Long     float32 `json:"reclong,string"`
 }
 
 func getJSON(url string, target interface{}) error {
@@ -31,17 +32,17 @@ func getJSON(url string, target interface{}) error {
 }
 
 func main() {
-	db, err := getDBConnection()
-	defer db.Close()
+	config.InitDB("mysql")
+	defer config.DB.Close()
 
 	// Prepare statement for inserting data TODO: use multi insert
-	stmtIns, err := db.Prepare("INSERT IGNORE INTO meteor_landings VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ? )")
+	stmtIns, err := config.DB.Prepare("INSERT IGNORE INTO meteor_landings VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ? )")
 	if err != nil {
 		panic(err.Error())
 	}
 	defer stmtIns.Close()
 
-	var meteors []models.Meteor
+	var meteors []JSONMeteor
 	getJSON("https://data.nasa.gov/resource/y77d-th95.json", &meteors)
 
 	for _, meteor := range meteors {
