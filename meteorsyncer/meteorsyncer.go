@@ -35,20 +35,34 @@ func main() {
 	config.InitDB("mysql")
 	defer config.DB.Close()
 
-	// Prepare statement for inserting data TODO: use multi insert
-	stmtIns, err := config.DB.Prepare("INSERT IGNORE INTO meteor_landings VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ? )")
-	if err != nil {
-		panic(err.Error())
-	}
-	defer stmtIns.Close()
-
+	batchInsSize := 5000
+	var sqlInsStr string
 	var meteors []JSONMeteor
+	var currentBatch []JSONMeteor
+
 	getJSON("https://data.nasa.gov/resource/y77d-th95.json", &meteors)
 
-	for _, meteor := range meteors {
-		_, err := stmtIns.Exec(meteor.NasaID, meteor.Name, meteor.NameType, meteor.Class, meteor.Fall, meteor.MassG, meteor.Date, meteor.Lat, meteor.Long)
+	for i := 0; i < len(meteors); i += batchInsSize {
+		currentBatch = meteors[i : i+batchInsSize]
+		sqlInsStr = "INSERT IGNORE INTO meteor_landings(nasa_id, name, type, class, fall, mass_g, date_utc, location_lat, location_long) VALUES "
+		values := []interface{}{}
+
+		for _, meteor := range currentBatch {
+			sqlInsStr += "( ?, ?, ?, ?, ?, ?, ?, ?, ? ),"
+			values = append(values, meteor.NasaID, meteor.Name, meteor.NameType, meteor.Class, meteor.Fall, meteor.MassG, meteor.Date, meteor.Lat, meteor.Long)
+		}
+		sqlInsStr = sqlInsStr[0 : len(sqlInsStr)-1]
+
+		stmtIns, err := config.DB.Prepare(sqlInsStr)
 		if err != nil {
 			panic(err.Error())
 		}
+		defer stmtIns.Close()
+
+		_, err = stmtIns.Exec(values...)
+		if err != nil {
+			panic(err.Error())
+		}
+
 	}
 }
