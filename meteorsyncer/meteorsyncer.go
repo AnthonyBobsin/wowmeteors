@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
 
 	"github.com/AnthonyBobsin/wowmeteors/config"
 	_ "github.com/go-sql-driver/mysql"
@@ -51,7 +52,7 @@ func main() {
 			sqlInsStr += "( ?, ?, ?, ?, ?, ?, ?, ?, ? ),"
 			values = append(values, meteor.NasaID, meteor.Name, meteor.NameType, meteor.Class, meteor.Fall, meteor.MassG, meteor.Date, meteor.Lat, meteor.Long)
 		}
-		sqlInsStr = sqlInsStr[0 : len(sqlInsStr)-1]
+		sqlInsStr = strings.TrimSuffix(sqlInsStr, ",")
 
 		stmtIns, err := config.DB.Prepare(sqlInsStr)
 		if err != nil {
