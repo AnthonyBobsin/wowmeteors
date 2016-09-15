@@ -14,7 +14,7 @@ export const MeteorDashboard = (props) => {
       <h5>Welcome To</h5>
       <h3>The Meteor Dashboard</h3>
       <br/>
-      <form className="form-inline">
+      <div className="form-inline">
         <input
           type="text"
           className="meteor-value form-control"
@@ -23,13 +23,12 @@ export const MeteorDashboard = (props) => {
           onChange={handleChangeValue}
         />
         <button
-          type="button"
           className={addMeteorClasses}
           onClick={handleAddMeteor}
         >
           Add Meteor
         </button>
-      </form>
+      </div>
       <div>
         {props.meteors.map((meteor, i) => (
           <div key={i}>{meteor}</div>
