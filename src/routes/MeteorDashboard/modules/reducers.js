@@ -1,28 +1,11 @@
-
-export const ADD_METEOR = 'ADD_METEOR'
-export const CHANGE_VALUE = 'CHANGE_VALUE'
-
-export function addMeteor (value) {
-  return {
-    type : ADD_METEOR,
-    value
-  }
-}
-
-export function changeValue (value) {
-  return {
-    type : CHANGE_VALUE,
-    value
-  }
-}
-
-export const actions = {
-  addMeteor,
-  changeValue
-}
+import {
+  ADD_METEOR,
+  RECEIVE_METEORS,
+  CHANGE_VALUE
+} from './actions'
 
 const ACTION_HANDLERS = {
-  [ADD_METEOR] : (state, action) => ({
+  [ADD_METEOR]       : (state, action) => ({
     ...state,
     meteors : [
       ...state.meteors,
@@ -30,7 +13,11 @@ const ACTION_HANDLERS = {
     ],
     value   : ''
   }),
-  [CHANGE_VALUE] : (state, action) => ({
+  [RECEIVE_METEORS]  : (state, action) => ({
+    ...state,
+    meteors : action.meteors
+  }),
+  [CHANGE_VALUE]     : (state, action) => ({
     ...state,
     value : action.value
   })
