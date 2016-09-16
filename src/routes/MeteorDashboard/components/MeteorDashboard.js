@@ -3,10 +3,14 @@ import React from 'react'
 import './MeteorDashboard.scss'
 
 export class MeteorDashboard extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.handleChangeValue = this.handleChangeValue.bind(this)
     this.handleAddMeteor = this.handleAddMeteor.bind(this)
+  }
+
+  componentDidMount () {
+    this.props.fetchMeteors()
   }
 
   handleChangeValue (event) {
@@ -43,7 +47,7 @@ export class MeteorDashboard extends React.Component {
         </div>
         <div>
           {this.props.meteors.map((meteor, i) => (
-            <div key={i}>{meteor}</div>
+            <div key={i}>{meteor.name}</div>
           ))}
         </div>
       </div>

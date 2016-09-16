@@ -1,11 +1,16 @@
 import { connect } from 'react-redux'
-import { addMeteor, changeValue } from '../modules/meteorDashboard'
+import {
+  addMeteor,
+  fetchMeteors,
+  changeValue
+} from '../modules/actions'
 
 import MeteorDashboard from '../components/MeteorDashboard'
 
 const mapDispatchToProps = {
   addMeteor,
-  changeValue
+  fetchMeteors,
+  changeValue,
 }
 
 const mapStateToProps = (state) => ({

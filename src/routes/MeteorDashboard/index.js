@@ -6,7 +6,7 @@ export default (store) => ({
   getComponent (nextState, cb) {
     require.ensure([], (require) => {
       const MeteorDashboard = require('./containers/MeteorDashboardContainer').default
-      const reducer = require('./modules/meteorDashboard').default
+      const reducer = require('./modules/reducers').default
 
       injectReducer(store, { key: 'meteorDashboard', reducer })
 
