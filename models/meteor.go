@@ -10,15 +10,15 @@ import (
 
 // Meteor struct that wraps meteors table row
 type Meteor struct {
-	NasaID   int
-	Name     string
-	NameType string
-	Class    string
-	Fall     string
-	MassG    int32
-	Date     string
-	Lat      float32
-	Long     float32
+	NasaID   int     `json:"nasaId"`
+	Name     string  `json:"name"`
+	NameType string  `json:"nameType"`
+	Class    string  `json:"class"`
+	Fall     string  `json:"fall"`
+	MassG    int32   `json:"massG"`
+	Date     string  `json:"date"`
+	Lat      float32 `json:"lat"`
+	Long     float32 `json:"long"`
 }
 
 // AllMeteors Query MySQL database for all rows from the meteors table within limit
