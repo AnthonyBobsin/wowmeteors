@@ -25,7 +25,7 @@ type Meteor struct {
 func AllMeteors(lowerLimit string, upperLimit string) []Meteor {
 	var buffer bytes.Buffer
 
-	buffer.WriteString("SELECT * FROM meteor_landings")
+	buffer.WriteString("SELECT * FROM meteor_landings WHERE nasa_id > 0")
 
 	if len(lowerLimit) > 0 && len(upperLimit) > 0 {
 		buffer.WriteString(fmt.Sprintf(" LIMIT %s, %s", lowerLimit, upperLimit))
