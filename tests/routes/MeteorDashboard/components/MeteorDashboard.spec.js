@@ -1,7 +1,7 @@
 import React from 'react'
 import { bindActionCreators} from 'redux'
-import { MeteorRow } from 'routes/MeteorDashboard/components/MeteorRow'
-import { MeteorDashboard} from 'routes/MeteorDashboard/components/MeteorDashboard'
+import MeteorRow from 'routes/MeteorDashboard/components/MeteorRow'
+import MeteorDashboard from 'routes/MeteorDashboard/components/MeteorDashboard'
 import { shallow } from 'enzyme'
 
 describe('(Component) MeteorDashboard', () => {

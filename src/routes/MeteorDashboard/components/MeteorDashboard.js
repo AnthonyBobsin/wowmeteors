@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { MeteorRow } from './MeteorRow'
+import MeteorRow from './MeteorRow'
 import './MeteorDashboard.scss'
 
-export class MeteorDashboard extends React.Component {
+export default class MeteorDashboard extends React.Component {
   constructor (props) {
     super(props)
     this.handleChangeValue = this.handleChangeValue.bind(this)
@@ -46,7 +46,7 @@ export class MeteorDashboard extends React.Component {
             Add Meteor
           </button>
         </div>
-        <div>
+        <div className="meteor-rows">
           {this.props.meteors.map((meteor, i) => (
             <MeteorRow key={i} {...meteor} />
           ))}
@@ -61,5 +61,3 @@ MeteorDashboard.propTypes = {
   addMeteor   : React.PropTypes.func.isRequired,
   changeValue : React.PropTypes.func.isRequired
 }
-
-export default MeteorDashboard
