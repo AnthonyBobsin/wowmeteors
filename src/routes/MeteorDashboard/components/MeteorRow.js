@@ -8,7 +8,9 @@ export class MeteorRow extends React.Component {
   render () {
     return (
       <div className="meteor-row">
-        <div>{this.props.name}</div>
+        <div className="meteor-name">
+          {this.props.name}
+        </div>
       </div>
     )
   }

@@ -25,7 +25,7 @@ describe('(Component) MeteorDashboard', () => {
   })
 
   it('Should render as a <div>.', () => {
-    expect(_wrapper.is('div')).to.equal(true)
+    expect(_wrapper.is('div')).to.eq(true)
   })
 
   it('Should render with an <h5> that includes Welcome To text.', () => {
@@ -40,12 +40,17 @@ describe('(Component) MeteorDashboard', () => {
     let _form
 
     beforeEach(() => {
-      _form = _wrapper.find('div').filterWhere(d => d.hasClass('form-inline'))
+      _form = _wrapper.find('div.form-inline')
     })
 
     describe('Input field...', () => {
+      let _input
+
+      beforeEach(() => {
+        _input = _form.find('input')
+      })
+
       it('Should represent the "value" prop.', () => {
-        let _input = _form.find('input')
         expect(_input.props().value).to.eq("Some Meteor")
 
         _wrapper.setProps({ value: "Another Meteor" })
@@ -56,7 +61,6 @@ describe('(Component) MeteorDashboard', () => {
       })
 
       it('Should dispatch a `changeValue` action on change.', () => {
-        let _input = _form.find('input')
         expect(_input.props().value).to.eq("Some Meteor")
 
         _input.simulate('change', { target: { value: "Another Meteor" } })
@@ -66,9 +70,17 @@ describe('(Component) MeteorDashboard', () => {
     })
 
     describe('Button...', () => {
-      it('Should dispatch an `addMeteor` action on click.', () => {
-        let _button = _form.find('button')
+      let _button
 
+      beforeEach(() => {
+        _button = _form.find('button')
+      })
+
+      it('Should render with the Add Meteor text.', () => {
+        expect(_button.text()).to.match(/Add Meteor/)
+      })
+
+      it('Should dispatch an `addMeteor` action on click.', () => {
         _button.simulate('click')
         _spies.dispatch.should.have.been.called
         _spies.addMeteor.should.have.been.called
