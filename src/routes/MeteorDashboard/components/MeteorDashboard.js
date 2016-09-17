@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { MeteorRow } from './MeteorRow'
 import './MeteorDashboard.scss'
 
 export class MeteorDashboard extends React.Component {
@@ -47,7 +48,7 @@ export class MeteorDashboard extends React.Component {
         </div>
         <div>
           {this.props.meteors.map((meteor, i) => (
-            <div key={i}>{meteor.name}</div>
+            <MeteorRow key={i} {...meteor} />
           ))}
         </div>
       </div>
