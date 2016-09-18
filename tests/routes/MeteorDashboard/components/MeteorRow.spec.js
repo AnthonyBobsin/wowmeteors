@@ -1,5 +1,6 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
+import MeteorCell from 'routes/MeteorDashboard/components/MeteorCell'
 import MeteorRow from 'routes/MeteorDashboard/components/MeteorRow'
 import { shallow } from 'enzyme'
 
@@ -8,17 +9,7 @@ describe('(Component) MeteorRow', () => {
 
   beforeEach(() => {
     _spies = {}
-    _props = {
-      nasaId   : 1,
-      name     : "Aachen",
-      nameType : "Valid",
-      class    : "L5",
-      fall     : "Fell",
-      massG    : 21,
-      date     : "1880-01-01",
-      lat      : "50.775",
-      long     : "6.083"
-    }
+    _props = { meteor: { name: "Aachen" } }
     _wrapper = shallow(<MeteorRow {..._props} />)
   })
 
@@ -26,111 +17,21 @@ describe('(Component) MeteorRow', () => {
     expect(_wrapper.is('div')).to.eq(true)
   })
 
-  describe('Nasa ID...', () => {
-    let _nameDiv
-
-    beforeEach(() => {
-      _nameDiv = _wrapper.find('.meteor-nasa-id')
-    })
-
-    it('Should render a <div> that represents the nasaId prop.', () => {
-      expect(_nameDiv.text()).to.match(/1/)
-    })
+  it('Should render a MeteorCell for every attr within "meteor" prop.', () => {
+    const meteorCell = _wrapper.find(MeteorCell)
+    expect(meteorCell).to.have.length(1)
   })
 
-  describe('Name...', () => {
-    let _nameDiv
+  describe('MeteorCells...', () => {
+    let _meteorCell
 
     beforeEach(() => {
-      _nameDiv = _wrapper.find('.meteor-name')
+      _meteorCell = _wrapper.find(MeteorCell)
     })
 
-    it('Should render a <div> that represents the name prop.', () => {
-      expect(_nameDiv.text()).to.match(/Aachen/)
-    })
-  })
-
-  describe('Name type...', () => {
-    let _nameDiv
-
-    beforeEach(() => {
-      _nameDiv = _wrapper.find('.meteor-name-type')
-    })
-
-    it('Should render a <div> that represents the nameType prop.', () => {
-      expect(_nameDiv.text()).to.match(/Valid/)
-    })
-  })
-
-  describe('Class...', () => {
-    let _nameDiv
-
-    beforeEach(() => {
-      _nameDiv = _wrapper.find('.meteor-class')
-    })
-
-    it('Should render a <div> that represents the class prop.', () => {
-      expect(_nameDiv.text()).to.match(/L5/)
-    })
-  })
-
-  describe('Fall...', () => {
-    let _nameDiv
-
-    beforeEach(() => {
-      _nameDiv = _wrapper.find('.meteor-fall')
-    })
-
-    it('Should render a <div> that represents the fall prop.', () => {
-      expect(_nameDiv.text()).to.match(/Fell/)
-    })
-  })
-
-  describe('Mass G...', () => {
-    let _nameDiv
-
-    beforeEach(() => {
-      _nameDiv = _wrapper.find('.meteor-mass-g')
-    })
-
-    it('Should render a <div> that represents the massG prop.', () => {
-      expect(_nameDiv.text()).to.match(/21/)
-    })
-  })
-
-  describe('Date...', () => {
-    let _nameDiv
-
-    beforeEach(() => {
-      _nameDiv = _wrapper.find('.meteor-date')
-    })
-
-    it('Should render a <div> that represents the date prop.', () => {
-      expect(_nameDiv.text()).to.match(/1880-01-01/)
-    })
-  })
-
-  describe('Latitude...', () => {
-    let _nameDiv
-
-    beforeEach(() => {
-      _nameDiv = _wrapper.find('.meteor-lat')
-    })
-
-    it('Should render a <div> that represents the lat prop.', () => {
-      expect(_nameDiv.text()).to.match(/50.775/)
-    })
-  })
-
-  describe('Longitude...', () => {
-    let _nameDiv
-
-    beforeEach(() => {
-      _nameDiv = _wrapper.find('.meteor-long')
-    })
-
-    it('Should render a <div> that represents the long prop.', () => {
-      expect(_nameDiv.text()).to.match(/6.083/)
+    it('Should receive the correct "attribute" and "value" props.', () => {
+      expect(_meteorCell.props().attribute).to.eq("name")
+      expect(_meteorCell.props().value).to.eq("Aachen")
     })
   })
 })
