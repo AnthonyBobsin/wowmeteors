@@ -3,6 +3,17 @@
   width: 60% !important;
 }
 
+.meteor-headers {
+  display: flex;
+  border-radius: 3px 3px 0 0;
+  background-color: #263238;
+  color: white;
+  .meteor-header {
+    padding: 10px 0;
+    flex: 1;
+  }
+}
+
 .meteor-rows {
   margin: 10px;
   .meteor-row {
@@ -11,9 +22,6 @@
     display: flex;
     & > div {
       flex: 1;
-    }
-    &:first-of-type {
-      border-radius: 3px 3px 0 0;
     }
     &:last-of-type {
       border-radius: 0 0 3px 3px;

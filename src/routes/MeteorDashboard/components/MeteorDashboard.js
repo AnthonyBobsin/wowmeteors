@@ -9,6 +9,7 @@ export default class MeteorDashboard extends React.Component {
     super(props)
     this.handleChangeValue = this.handleChangeValue.bind(this)
     this.handleAddMeteor = this.handleAddMeteor.bind(this)
+    this.getMeteorHeaders = this.getMeteorHeaders.bind(this)
   }
 
   componentDidMount () {
@@ -21,6 +22,12 @@ export default class MeteorDashboard extends React.Component {
 
   handleAddMeteor (event) {
     if (this.props.value) this.props.addMeteor(this.props.value)
+  }
+
+  getMeteorHeaders () {
+    return (
+      this.props.meteors[0] && Object.keys(this.props.meteors[0])
+    ) || []
   }
 
   render () {
@@ -48,7 +55,10 @@ export default class MeteorDashboard extends React.Component {
           </button>
         </div>
         <div className="meteor-rows">
-          <MeteorHeaders {...this.props}/>
+          <MeteorHeaders
+            {...this.props}
+            headers={this.getMeteorHeaders()}
+          />
           {this.props.meteors.map((meteor, i) => (
             <MeteorRow key={i} meteor={meteor} />
           ))}

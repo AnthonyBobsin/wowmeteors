@@ -21,7 +21,7 @@ export function receiveMeteors(json) {
 
 export function fetchMeteors() {
   return dispatch => {
-    return fetch('http://localhost:8080/meteors?lowerLimit=0&upperLimit=100')
+    return fetch('http://localhost:8080/meteors?lowerLimit=0&upperLimit=1000')
       .then(response => response.json())
       .then(json => dispatch(receiveMeteors(json)))
   }
