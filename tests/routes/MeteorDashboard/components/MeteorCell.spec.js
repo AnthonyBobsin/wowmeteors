@@ -4,7 +4,6 @@ import MeteorCell from 'routes/MeteorDashboard/components/MeteorCell'
 import 'shames/string'
 import { shallow } from 'enzyme'
 
-
 describe('(Component) MeteorCell', () => {
   let _props, _wrapper
 
