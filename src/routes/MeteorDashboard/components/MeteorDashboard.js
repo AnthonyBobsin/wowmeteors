@@ -1,5 +1,6 @@
 import React from 'react'
 
+import MeteorHeaders from './MeteorHeaders'
 import MeteorRow from './MeteorRow'
 import './MeteorDashboard.scss'
 
@@ -47,8 +48,9 @@ export default class MeteorDashboard extends React.Component {
           </button>
         </div>
         <div className="meteor-rows">
+          <MeteorHeaders {...this.props}/>
           {this.props.meteors.map((meteor, i) => (
-            <MeteorRow key={i} {...meteor} />
+            <MeteorRow key={i} meteor={meteor} />
           ))}
         </div>
       </div>
