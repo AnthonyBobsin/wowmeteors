@@ -1,2 +1,3 @@
 
 import './string'
+import './function'

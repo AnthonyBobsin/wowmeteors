@@ -1,3 +1,9 @@
+
+.meteor-rows {
+  position: relative;
+  padding-top: 40px;
+}
+
 .meteor-value {
   margin-right: 10px;
   width: 60% !important;
@@ -5,9 +11,19 @@
 
 .meteor-headers {
   display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   border-radius: 3px 3px 0 0;
   background-color: #263238;
   color: white;
+  &.fixed-header {
+    position: fixed;
+    margin-left: 10px;
+    margin-right: 10px;
+    top: 0;
+  }
   .meteor-header {
     padding: 10px 0;
     flex: 1;
