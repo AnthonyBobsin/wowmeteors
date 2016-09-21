@@ -1,11 +1,9 @@
 import {
   ADD_METEOR,
   RECEIVE_METEORS,
-  CHANGE_VALUE,
   addMeteor,
   receiveMeteors,
-  fetchMeteors,
-  changeValue
+  fetchMeteors
 } from 'routes/MeteorDashboard/modules/actions'
 
 import meteorDashboardReducer from 'routes/MeteorDashboard/modules/reducers'
@@ -17,10 +15,6 @@ describe('(Redux Action Creator) MeteorDashboard', () => {
 
   it('Should export a constant RECEIVE_METEORS.', () => {
     expect(RECEIVE_METEORS).to.equal('RECEIVE_METEORS')
-  })
-
-  it('Should export a constant CHANGE_VALUE.', () => {
-    expect(CHANGE_VALUE).to.equal('CHANGE_VALUE')
   })
 
   describe('addMeteor', () => {
@@ -94,20 +88,6 @@ describe('(Redux Action Creator) MeteorDashboard', () => {
           _dispatchSpy.should.have.been.calledOnce
           expect(_globalState.meteorDashboard.meteors).to.not.be.empty
         })
-    })
-  })
-
-  describe('changeValue', () => {
-    it('Should be exported as a function.', () => {
-      expect(changeValue).to.be.a('function')
-    })
-
-    it('Should return an action with type "CHANGE_VALUE".', () => {
-      expect(changeValue()).to.have.property('type', CHANGE_VALUE)
-    })
-
-    it('Should assign the first argument to the "value" property.', () => {
-      expect(changeValue(5)).to.have.property('value', 5)
     })
   })
 })
