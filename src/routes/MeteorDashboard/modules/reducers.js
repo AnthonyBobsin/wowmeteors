@@ -1,7 +1,6 @@
 import {
   ADD_METEOR,
-  RECEIVE_METEORS,
-  CHANGE_VALUE
+  RECEIVE_METEORS
 } from './actions'
 
 const ACTION_HANDLERS = {
@@ -16,10 +15,6 @@ const ACTION_HANDLERS = {
   [RECEIVE_METEORS]  : (state, action) => ({
     ...state,
     meteors : action.meteors
-  }),
-  [CHANGE_VALUE]     : (state, action) => ({
-    ...state,
-    value : action.value
   })
 }
 
