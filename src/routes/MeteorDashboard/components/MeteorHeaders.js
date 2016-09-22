@@ -23,9 +23,9 @@ export default class MeteorHeaders extends React.Component {
   }
 
   handleHeadersLock (event) {
-    this.setState({
-      isFixed : this.state.initialHeaderHeight <= event.srcElement.body.scrollTop
-    })
+    this.setState((prevState) => ({
+      isFixed: prevState.initialHeaderHeight <= event.srcElement.body.scrollTop
+    }))
   }
 
   render () {
