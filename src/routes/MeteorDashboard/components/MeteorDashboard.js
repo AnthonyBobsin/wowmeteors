@@ -7,6 +7,9 @@ import './MeteorDashboard.scss'
 export default class MeteorDashboard extends React.Component {
   constructor (props) {
     super(props)
+    this.state = {
+      value: ""
+    }
     this.handleChangeValue = this.handleChangeValue.bind(this)
     this.handleAddMeteor = this.handleAddMeteor.bind(this)
     this.getMeteorHeaders = this.getMeteorHeaders.bind(this)
@@ -17,11 +20,13 @@ export default class MeteorDashboard extends React.Component {
   }
 
   handleChangeValue (event) {
-    this.props.changeValue(event.target.value)
+    this.setState({
+      value: event.target.value
+    })
   }
 
   handleAddMeteor (event) {
-    if (this.props.value) this.props.addMeteor(this.props.value)
+    if (this.state.value) this.props.addMeteor(this.state.value)
   }
 
   getMeteorHeaders () {
@@ -32,7 +37,7 @@ export default class MeteorDashboard extends React.Component {
 
   render () {
     let addMeteorClasses = "btn btn-primary add-meteor"
-    if (!this.props.value) addMeteorClasses += " disabled"
+    if (!this.state.value) addMeteorClasses += " disabled"
 
     return (
       <div className="meteor-dashboard">
@@ -44,7 +49,7 @@ export default class MeteorDashboard extends React.Component {
             type="text"
             className="meteor-value form-control"
             placeholder="Meteor Name"
-            value={this.props.value}
+            value={this.state.value}
             onChange={this.handleChangeValue}
           />
           <button
@@ -69,7 +74,6 @@ export default class MeteorDashboard extends React.Component {
 }
 
 MeteorDashboard.propTypes = {
-  value       : React.PropTypes.string.isRequired,
   addMeteor   : React.PropTypes.func.isRequired,
   changeValue : React.PropTypes.func.isRequired
 }
