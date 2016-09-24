@@ -7,9 +7,7 @@ import './MeteorDashboard.scss'
 export default class MeteorDashboard extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
-      value: ""
-    }
+    this.state = { value: "" }
     this.handleChangeValue = this.handleChangeValue.bind(this)
     this.handleAddMeteor = this.handleAddMeteor.bind(this)
     this.getMeteorHeaders = this.getMeteorHeaders.bind(this)
@@ -20,9 +18,7 @@ export default class MeteorDashboard extends React.Component {
   }
 
   handleChangeValue (event) {
-    this.setState({
-      value: event.target.value
-    })
+    this.setState({ value: event.target.value })
   }
 
   handleAddMeteor (event) {
