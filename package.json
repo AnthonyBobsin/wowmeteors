@@ -1,5 +1,5 @@
 {
-  "name": "Wow Meteors!",
+  "name": "wowmeteors!",
   "version": "0.1",
   "description": "Query and visualize NASA's meteor landings dataset.",
   "main": "index.js",
