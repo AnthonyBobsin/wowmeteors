@@ -1,7 +1,7 @@
 {
-  "name": "react-redux-starter-kit",
+  "name": "Wow Meteors!",
   "version": "3.0.0-alpha.2",
-  "description": "Get started with React, Redux, and React-Router!",
+  "description": "Query and visualize NASA's meteor landings dataset.",
   "main": "index.js",
   "engines": {
     "node": ">=4.5.0",
