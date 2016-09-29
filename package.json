@@ -1,6 +1,6 @@
 {
   "name": "Wow Meteors!",
-  "version": "3.0.0-alpha.2",
+  "version": "0.1",
   "description": "Query and visualize NASA's meteor landings dataset.",
   "main": "index.js",
   "engines": {
