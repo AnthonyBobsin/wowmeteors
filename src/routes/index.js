@@ -10,11 +10,8 @@ import MeteorDashboardRoute from './MeteorDashboard'
 export const createRoutes = (store) => ({
   path        : '/',
   component   : CoreLayout,
-  indexRoute  : Home,
-  childRoutes : [
-    CounterRoute(store),
-    MeteorDashboardRoute(store)
-  ]
+  indexRoute  : MeteorDashboardRoute(store),
+  childRoutes : []
 })
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically
