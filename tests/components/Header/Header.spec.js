@@ -11,28 +11,28 @@ describe('(Component) Header', () => {
   })
 
   describe('Navigation links...', () => {
-    it('Should render a Link to Home route', () => {
-      expect(_wrapper.contains(
-        <IndexLink activeClassName='route--active' to='/'>
-          Home
-        </IndexLink>
-      )).to.be.true
-    })
-
-    it('Should render a Link to Counter route', () => {
-      expect(_wrapper.contains(
-        <Link activeClassName='route--active' to='/counter'>
-          Counter
-        </Link>
-      )).to.be.true
-    })
-
-    it('Should render a Link to MeteorDashboard route', () => {
-      expect(_wrapper.contains(
-        <Link activeClassName='route--active' to='/meteor-dashboard'>
-          Meteors
-        </Link>
-      )).to.be.true
-    })
+    // it('Should render a Link to Home route', () => {
+    //   expect(_wrapper.contains(
+    //     <IndexLink activeClassName='route--active' to='/'>
+    //       Home
+    //     </IndexLink>
+    //   )).to.be.true
+    // })
+    //
+    // it('Should render a Link to Counter route', () => {
+    //   expect(_wrapper.contains(
+    //     <Link activeClassName='route--active' to='/counter'>
+    //       Counter
+    //     </Link>
+    //   )).to.be.true
+    // })
+    //
+    // it('Should render a Link to MeteorDashboard route', () => {
+    //   expect(_wrapper.contains(
+    //     <Link activeClassName='route--active' to='/meteor-dashboard'>
+    //       Meteors
+    //     </Link>
+    //   )).to.be.true
+    // })
   })
 })
